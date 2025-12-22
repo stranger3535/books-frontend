@@ -11,9 +11,12 @@ type Book = {
 };
 
 async function getBooks(): Promise<Book[]> {
-  const res = await fetch("http://localhost:3000/api/books", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    "https://books-frontend-xf8l-abhijiths-projects-276732aa.vercel.app/api/books",
+    {
+      cache: "no-store",
+    }
+  );
   if (!res.ok) throw new Error("Failed to fetch books");
   return res.json();
 }
