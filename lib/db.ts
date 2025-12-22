@@ -8,11 +8,15 @@ const pool = new Pool({
   password: "12341",
 });
 
-export async function query<T = unknown>(text: string, params?: unknown[]) {
+// No generic, no `any`
+export async function query(
+  text: string,
+  params?: unknown[]
+) {
   const client = await pool.connect();
   try {
     const res = await client.query(text, params);
-    return res;
+    return res; // type is QueryResult<any>, which is fine
   } finally {
     client.release();
   }
