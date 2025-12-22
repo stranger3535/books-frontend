@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 // app/books/page.tsx
 type Book = {
   title: string;
@@ -5,7 +7,7 @@ type Book = {
   price: string;
   availability: string;
   rating: number;
-  image_url: string;        // make sure this matches your column name
+  image_url: string;
 };
 
 async function getBooks(): Promise<Book[]> {
