@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 
-// app/books/page.tsx
 type Book = {
   title: string;
   category: string;
@@ -11,15 +10,21 @@ type Book = {
 };
 
 async function getBooks(): Promise<Book[]> {
-  // relative URL → works on localhost and Vercel
-  const res = await fetch("/api/books", {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
+
+  const res = await fetch(`${baseUrl}/api/books`, {
     cache: "no-store",
   });
-  if (!res.ok) throw new Error("Failed to fetch books");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch books");
+  }
+
   return res.json();
 }
 
-export default async function BooksPage() {
+export default async function Home() {
   const books = await getBooks();
 
   return (

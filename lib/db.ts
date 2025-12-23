@@ -1,22 +1,17 @@
 import { Pool } from "pg";
 
 const pool = new Pool({
-  host: "localhost",
-  port: 5432,
-  database: "webscrape",
-  user: "postgres",
-  password: "12341",
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
-// No generic, no `any`
-export async function query(
-  text: string,
-  params?: unknown[]
-) {
+export async function query(text: string, params?: unknown[]) {
   const client = await pool.connect();
   try {
     const res = await client.query(text, params);
-    return res; // type is QueryResult<any>, which is fine
+    return res;
   } finally {
     client.release();
   }
